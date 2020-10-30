@@ -32,14 +32,21 @@
 
  -  To test you have all your infrastructure as code, it is recommended to wipe out your development namespace and try deploying to it with zero manual configuration. This includes:
 
-   [] network security policies - sample network security policy files can be found here.
-   [] build objects, namely build configs and images
-   [] secrets and config maps
-   [] application services
-   [] state/data
-   [] persistent storage
-   [] deployment configs
-   [] routes
+        [ ] network security policies - sample network security policy files can be found here  
+
+        [ ] build objects, namely build configs and images  
+
+        [ ] secrets and config maps  
+
+        [ ] application services  
+        
+        [ ] state/data
+
+        [ ] persistent storage  
+
+        [ ] deployment configs   
+        
+        [ ] routes
 
   - Ensure that your CI/CD orchestrator (Jenkins, Circle CI, GitHub Actions, etc) are persistent and stored as code in order to ensure you dont lose the job configurations
 
@@ -49,41 +56,53 @@
 
   - Identify external dependencies such as:
 
-     [] vanity DNS
-     [] external supporting services (SSO, external DB, etc)
-     [] network access rules (internal to cluster, external to cluster)
-     [] users (direct to user, external applications, internal services)
+        [ ] vanity DNS  
+
+        [ ] external supporting services (SSO, external DB, etc)
+
+        [ ] network access rules (internal to cluster, external to cluster)
+
+        [ ] users (direct to user, external applications, internal services)
+
 
 ## Climax 
 
    You will need to perform the following activities to migrate from OCP 3 to OCP 4
 
-### Network Ingress:
+### Network Ingress
   
    Do you manage an application vanity url? A vanity url is normally of the form (my-app.gov.bc.ca) or do you leverage the pathfinder.gov.bc.ca wildcard? 
    
    With the move to an enterprise service, the platform wildcard has been deemed unsuitable for production application deployments. For exposing tools, dev and test services, the wildcard ingress will still be available at *.apps.silver.devops.gov.bc.ca. This means if you don't have a vanity URL for your application yet, you will want to get started on provisioning one. The steps for getting a url are given below:
 
-   #### Wildcard certs
+##### Wildcard certs
    
-   If you need a wildcart certs, you will need to:
-    1) accept risks,
+If you need a wildcart certs, you will need to:
+
+    1) accept risks
+
     2) provide valid justifications
+
     3) dwell with care while using the certificate. 
+
     
-    It would be ideal to engage your MISO before going down that road.
+ It would be ideal to engage your MISO before going down that road.
 
-   #### Regular Vanity URLs
+##### Regular Vanity URLs
 
-   If your require regular vanity urls:
+ If your require regular vanity urls:
 
-   1) If external facing, get approval for your new URL from your GCPE contact.
-   2) Create an iStore request to order certificate (ie. mydomain.gov.bc.ca)
-   3) Create Certificate Signing Request(CSR) when order is completed (you will be recieving an email)
-   4) Send CSR (keeping private key secure) as instructed, and then you will recieve the cert(s)
-   5) Send a DNS request to point new domain url to openshift IP
+    1) If external facing, get approval for your new URL from your GCPE contact
 
-   For more information on ssl certs abd vanity urls, [click here](https://ssbc-client.gov.bc.ca/services/SSLCert/documents.htm)
+    2) Create an iStore request to order certificate (ie. mydomain.gov.bc.ca)
+
+    3) Create Certificate Signing Request(CSR) when order is completed (you will be recieving an email)
+
+    4) Send CSR (keeping private key secure) as instructed, and then you will recieve the cert(s)
+   
+    5) Send a DNS request to point new domain url to openshift IP
+
+For more information on ssl certs abd vanity urls, [click here](https://ssbc-client.gov.bc.ca/services/SSLCert/documents.htm)
 
 ### Network Egress
 
@@ -146,7 +165,16 @@ https://developers.redhat.com/blog/2019/08/14/best-practices-for-running-buildah
  - requires a completely automated end-to-end CI and CD pipeline
  - you will be required to have a separate mechanism to move over state
 
+## Delays in Release?
 
+  The possible reasons for a delay in your migration could be because of:
+
+    - DNS migration : DNS migrations could take some time to reflect due to the Time To Live property of DNS records. Time To Live is the expiry time of a DNS record. For e.g., if the TTL is set to 86400 seconds or 24 hrs, it means that once the DNS record has been requested, this request will cached for 86400 seconds before it is re-requested. 
+
+    - Availability/Outage requirements: There might be a need to schedule a downtime for your application before you migrate it to the new cluster, which could lead to potential delays.
+
+    - Phase dependencies/prerequisites: Migrations could possibly be delayed due to the time required to move state or if all of your infrastructure hasnt been maintained as code (such as secrets, config maps etc.)
+    
 ## End Credits
 
 https://github.com/BCDevOps/OpenShift4-Migration/tree/master/docs
