@@ -169,12 +169,12 @@ https://developers.redhat.com/blog/2019/08/14/best-practices-for-running-buildah
 
   The possible reasons for a delay in your migration could be because of:
 
-    - DNS migration : DNS migrations could take some time to reflect due to the Time To Live property of DNS records. Time To Live is the expiry time of a DNS record. For e.g., if the TTL is set to 86400 seconds or 24 hrs, it means that once the DNS record has been requested, this request will cached for 86400 seconds before it is re-requested. 
+  - DNS migration : DNS migrations could take some time to reflect due to the Time To Live property of DNS records. Time To Live is the expiry time of a DNS record. For e.g., if the TTL is set to 86400 seconds or 24 hrs, it means that once the DNS record has been requested, this request will cached for 86400 seconds before it is re-requested. 
 
-    - Availability/Outage requirements: There might be a need to schedule a downtime for your application before you migrate it to the new cluster, which could lead to potential delays.
+  - Availability/Outage requirements: There might be a need to schedule a downtime for your application before you migrate it to the new cluster, which could lead to potential delays.
 
-    - Phase dependencies/prerequisites: Migrations could possibly be delayed due to the time required to move state or if all of your infrastructure hasnt been maintained as code (such as secrets, config maps etc.)
-    
+  - Phase dependencies/prerequisites: Migrations could possibly be delayed due to the time required to move state or if all of your infrastructure hasnt been maintained as code (such as secrets, config maps etc.)
+
 ## End Credits
 
 https://github.com/BCDevOps/OpenShift4-Migration/tree/master/docs
