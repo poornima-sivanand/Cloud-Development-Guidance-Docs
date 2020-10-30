@@ -12,7 +12,7 @@
 
   This document has been created based on the migration of DevHub from Openshift 3.11 to Openshift 4. The effort and time mentioned is based on this migration and will remain similar for a full stack web application which has a frontend, backend and a database, if the application has additional components, it will require additional effort. This migration is also specific to an application already present in Openshift 3.11 cluster and this document will be refreshed with time to reflect migrations for other categories of applications.
 
-## Casting and Crew
+## Cast and Crew
 
   It is ideal to have a DevOps Specialist or a maximum of 2 Full Stack Developers in your team for performing this migration. Ensure your team is up to speed with managing CI/CD pipelines and are well versed with the ['oc' command line](https://docs.openshift.com/enterprise/3.0/cli_reference/get_started_cli.html).
 
