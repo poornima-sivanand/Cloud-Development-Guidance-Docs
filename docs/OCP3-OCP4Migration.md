@@ -10,6 +10,7 @@
 
   This document has been created based on the migration of DevHub from Openshift 3.11 to Openshift 4. The effort and time mentioned is based on this migration and will remain similar for a full stack web application which has a frontend, backend and a database, if the application has additional components, it will require additional effort. This migration is also specific to an application already present in Openshift 3.11 cluster and this document will be refreshed with time to reflect migrations for other categories of applications.
 
+
 ## Team Composition 
 
   It is ideal to have a DevOps Specialist or a maximum of 2 Full Stack Developers in your team for performing this migration. Ensure your team is up to speed with managing CI/CD pipelines and are well versed with the ['oc' command line](https://docs.openshift.com/enterprise/3.0/cli_reference/get_started_cli.html).
@@ -153,23 +154,9 @@ If you are using bcgov jenkins, [click here](https://developer.gov.bc.ca/Migrati
 
 - Modify your CI/CD pipeline to point to the new namespaces and deploy your application.
 
-#### Pros of following this approach
-
-- validates your build and deployment pipeline automation 
-- ensures faster return to normalcy 
-- identifies potential automation opportunities for the deployment pipeline
-- leverages existing integration tests for environment validation
-- with a working build/deploy pipeline, only state data is required to be moved to the new cluster
-- reduces potential issue surface
-- reduces potential cut-over downtime
-
-#### Cons of following this approach
-
- - requires a completely automated end-to-end CI and CD pipeline
- - you will be required to have a separate mechanism to move over state
-
-
 - If you are migrating rhel images, [click here](https://developer.gov.bc.ca/Migrating-Rhel-Images)to know how to migrate your applications.
+
+[Click here](https://github.com/BCDevOps/OpenShift4-Migration/blob/master/docs/pre-migration-cl.md) to identify different migration possibilities.
 
 ## Possible delays
 
@@ -182,6 +169,27 @@ If you are using bcgov jenkins, [click here](https://developer.gov.bc.ca/Migrati
   - Phase dependencies/prerequisites: Migrations could possibly be delayed due to the time required to move state or if all of your infrastructure hasnt been maintained as code (such as secrets, config maps etc.)
 
   [Click here](https://developer.gov.bc.ca/App-Migration-Painpoints) to know possible pain points of migration.
+
+
+## FAQs
+
+1. What is the version of OpenShift 4 available to BC Gov?
+
+Ans: Openshift 4.5.7 is the current deployed version - the plan is to be up to date (current release as of starting the early access)
+
+2. Will any migration tools be available?
+
+Ans : The Cluster Application Migration (CAM) will be available but since it does not currently support multi-tenancy, the migration using this tool will be assisted by a member of the Platform Services Team.  
+The recommended path will be to deploy your application pipeline and validate your application through the different environments (dev/test/prod-like), saving the final cut-over of prod until you're satisfied with your deployments. This approach allows you to fully validate your entire application before doing any final state/Service cutover from one cluster to the other.
+
+[Click here](https://access.redhat.com/documentation/en-us/openshift_container_platform/4.2/html/migration/migrating-from-openshift-container-platform-3#migration-understanding-cam_migrating-3-4) to learn more about the Cluster Application Migration tool.
+
+3. Are operators available, if so which of them will be initially available? 
+
+Ans:  Operators will be available, we have not yet built a list of operators that will be available for use (home built operators for artifactory and aporeto will be available to leverage those services right away.)
+- the work with operators that's still outstanding is work to determine the deployment patterns for operators (ie: cluster/platform-services managed and updated, vs individually deployed operators that can be scoped to a narrow set of namespaces, etc..)
+
+
 
 ## References
 
