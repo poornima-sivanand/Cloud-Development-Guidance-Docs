@@ -187,7 +187,11 @@ The recommended path will be to deploy your application pipeline and validate yo
 3. Are operators available, if so which of them will be initially available? 
 
 Ans:  Operators will be available, we have not yet built a list of operators that will be available for use (home built operators for artifactory and aporeto will be available to leverage those services right away.)
-- the work with operators that's still outstanding is work to determine the deployment patterns for operators (ie: cluster/platform-services managed and updated, vs individually deployed operators that can be scoped to a narrow set of namespaces, etc..)
+- the work with operators that's still outstanding is work to determine the deployment patterns for operators (ie: cluster/platform-services managed and updated, vs individually deployed operators that can be scoped to a narrow set of namespaces, etc.)
+
+4. Will we be able to use custom resource definitions (CRDs)?
+
+Ans: 
 
 
 
