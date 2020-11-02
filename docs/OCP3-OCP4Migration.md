@@ -1,6 +1,6 @@
 # Migrating your Application from Openshift 3.x to Openshift 4
 
-## Synopsis
+## Introduction
 
   Technology changes within a blink of an eye. It is important to keep upto date with latest technology to ensure greater efficiency and performance of your applications.
   
@@ -8,27 +8,24 @@
 
   Before migrating your application, it is important to understand the differences between Openshift 3 and Openshift 4. Learn about the differences by clicking [here](https://docs.openshift.com/container-platform/4.2/migration/migrating_3_4/planning-migration-3-to-4.html#migration-comparing-ocp-3-4).
 
-## Disclaimer
-
   This document has been created based on the migration of DevHub from Openshift 3.11 to Openshift 4. The effort and time mentioned is based on this migration and will remain similar for a full stack web application which has a frontend, backend and a database, if the application has additional components, it will require additional effort. This migration is also specific to an application already present in Openshift 3.11 cluster and this document will be refreshed with time to reflect migrations for other categories of applications.
 
-## Cast and Crew
+## Team Composition 
 
   It is ideal to have a DevOps Specialist or a maximum of 2 Full Stack Developers in your team for performing this migration. Ensure your team is up to speed with managing CI/CD pipelines and are well versed with the ['oc' command line](https://docs.openshift.com/enterprise/3.0/cli_reference/get_started_cli.html).
 
-## Runtime
+## Time required for migration
 
-  The migration would typically take one sprint(approximately 2 weeks) worth of time to plan and execute the migration.
+  The migration of a full stack web application is considered to be of medium complexity. The migration would typically take one sprint(approximately 2 weeks) worth of time to plan and execute the migration.
 
-## Plot
 
-### Assumptions:
+## Assumptions:
 
  - Your 3-tier full stack web applicaion is running on Openshift 3.11 cluster
  - You have a CI/CD pipeline which covers all stages from building the application to deploying it completely on Openshift
  - You have codified all components or Openshift objects.
 
-### Pre-migration Activities
+## Pre-migration Activities
 
  -  To test you have all your infrastructure as code, it is recommended to wipe out your development namespace and try deploying to it with zero manual configuration. This includes:
 
@@ -65,7 +62,7 @@
         [ ] users (direct to user, external applications, internal services)
 
 
-## Climax 
+## Migration Considerations
 
    You will need to perform the following activities to migrate from OCP 3 to OCP 4
 
@@ -147,6 +144,8 @@ https://developers.redhat.com/blog/2019/08/14/best-practices-for-running-buildah
 ### Time to Migrate
 
 - Migrate your CI/CD orchestrator first. In case you are using Jenkins, migrate Jenkins or redeploy Jenkins to the new tools namespace. This is where a Jenkins stored as code would come in handy. If you are using the BC Gov Jenkins image, use the one [here](https://github.com/BCDevOps/openshift-components/tree/jenkins-basic/upgrade-oc4). If you are using the RedHat Jenkins, use the latest image.
+
+If you are using bcgov jenkins, [click here](https://developer.gov.bc.ca/Migrating-Your-BC-Gov-Jenkins-to-the-Cloud) to see how to migrate it.
 
 - Modify your CI/CD pipeline to point to the new namespaces and deploy your application.
 
