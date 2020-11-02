@@ -173,18 +173,18 @@ If you are using bcgov jenkins, [click here](https://developer.gov.bc.ca/Migrati
 
 ## FAQs
 
-##### 1. What is the version of OpenShift 4 available to BC Gov?
+### 1. What is the version of OpenShift 4 available to BC Gov?
 
 **Ans**: Openshift 4.5.7 is the current deployed version - the plan is to be up to date (current release as of starting the early access)
 
-##### 2. Will any migration tools be available?
+### 2. Will any migration tools be available?
 
 **Ans**: The Cluster Application Migration (CAM) will be available but since it does not currently support multi-tenancy, the migration using this tool will be assisted by a member of the Platform Services Team.  
 The recommended path will be to deploy your application pipeline and validate your application through the different environments (dev/test/prod-like), saving the final cut-over of prod until you're satisfied with your deployments. This approach allows you to fully validate your entire application before doing any final state/Service cutover from one cluster to the other.
 
 [Click here](https://access.redhat.com/documentation/en-us/openshift_container_platform/4.2/html/migration/migrating-from-openshift-container-platform-3#migration-understanding-cam_migrating-3-4) to learn more about the Cluster Application Migration tool.
 
-##### 3. Are operators available, if so which of them will be initially available? 
+### 3. Are operators available, if so which of them will be initially available? 
 
 **Ans**:  Operators will be available, we have not yet built a list of operators that will be available for use (home built operators for artifactory and aporeto will be available to leverage those services right away.)
 - the work with operators that's still outstanding is work to determine the deployment patterns for operators (ie: cluster/platform-services managed and updated, vs individually deployed operators that can be scoped to a narrow set of namespaces, etc.)
@@ -198,11 +198,11 @@ Some of the questions the platform services team is looking for answers are:
 
 Each operator can have different answers for each of these questions.
 
-##### 4. Will we be able to use custom resource definitions (CRDs)?
+### 4. Will we be able to use custom resource definitions (CRDs)?
 
 **Ans**: CRDs are still a cluster configuration. Adding new CRDs will require coordination with the platform services team for their deployment/RBAC/etc.
 
-##### 5. Given that the new platform will use Container Runtime Interface-Openshift(CRI-O), and that the [documentation](https://docs.openshift.com/container-platform/4.6/openshift_images/create-images.html) says "CRI-O supports the insertion of random user IDs into the container’s /etc/passwd, so changing it’s permissions should never be required.", does this means that we won't need to have custom entrypoints to write the random uid/gid in /etc/passwd with OCP4?
+### 5. Given that the new platform will use Container Runtime Interface-Openshift(CRI-O), and that the [documentation](https://docs.openshift.com/container-platform/4.6/openshift_images/create-images.html) says "CRI-O supports the insertion of random user IDs into the container’s /etc/passwd, so changing it’s permissions should never be required.", does this means that we won't need to have custom entrypoints to write the random uid/gid in /etc/passwd with OCP4?
 
 ## References
 
