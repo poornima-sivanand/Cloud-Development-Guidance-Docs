@@ -128,6 +128,10 @@ The key storageClass types will be available (Block/File). StorageClass names ar
 
 A big improvement for integration into the enterprise backup system can be found via a normal persistent volume request for a new storageClass: netapp-file-backup (instead of the service catalog provisioning).
 
+### Working with multiple clusters
+
+When performing a migration from one cluster to another it is important that you can rapidly change between clusters without having to manually login. [Click here](https://developer.gov.bc.ca/Working-in-Multiple-Clusters) to learn more about contexts and how to switch between clusters on the fly.
+
 ### Migrating data
 
 Existing persistent data will need to be copied from one cluster to another (Sample soon to come to [https://github.com/bcdevops/StorageMigration] repository).
@@ -141,7 +145,7 @@ https://developers.redhat.com/blog/2019/02/21/podman-and-buildah-for-docker-user
 https://buildah.io
 https://developers.redhat.com/blog/2019/08/14/best-practices-for-running-buildah-in-a-container/
 
-### Time to Migrate
+## Time to Migrate
 
 - Migrate your CI/CD orchestrator first. In case you are using Jenkins, migrate Jenkins or redeploy Jenkins to the new tools namespace. This is where a Jenkins stored as code would come in handy. If you are using the BC Gov Jenkins image, use the one [here](https://github.com/BCDevOps/openshift-components/tree/jenkins-basic/upgrade-oc4). If you are using the RedHat Jenkins, use the latest image.
 
@@ -164,7 +168,10 @@ If you are using bcgov jenkins, [click here](https://developer.gov.bc.ca/Migrati
  - requires a completely automated end-to-end CI and CD pipeline
  - you will be required to have a separate mechanism to move over state
 
-## Delays in Release?
+
+- If you are migrating rhel images, [click here](https://developer.gov.bc.ca/Migrating-Rhel-Images)to know how to migrate your applications.
+
+## Possible delays
 
   The possible reasons for a delay in your migration could be because of:
 
@@ -174,7 +181,9 @@ If you are using bcgov jenkins, [click here](https://developer.gov.bc.ca/Migrati
 
   - Phase dependencies/prerequisites: Migrations could possibly be delayed due to the time required to move state or if all of your infrastructure hasnt been maintained as code (such as secrets, config maps etc.)
 
-## End Credits
+  [Click here](https://developer.gov.bc.ca/App-Migration-Painpoints) to know possible pain points of migration.
+
+## References
 
 https://github.com/BCDevOps/OpenShift4-Migration/tree/master/docs
 
