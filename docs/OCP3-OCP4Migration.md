@@ -204,6 +204,82 @@ Each operator can have different answers for each of these questions.
 
 ### 5. Given that the new platform will use Container Runtime Interface-Openshift(CRI-O), and that the [documentation](https://docs.openshift.com/container-platform/4.6/openshift_images/create-images.html) says "CRI-O supports the insertion of random user IDs into the container’s /etc/passwd, so changing it’s permissions should never be required.", does this means that we won't need to have custom entrypoints to write the random uid/gid in /etc/passwd with OCP4?
 
+**Ans**: When OpenShift starts a container, it uses an arbitrarily assigned user ID. This feature helps to ensure that if an application from within a container manages to break out to the host, it won’t be able to interact with other processes and containers owned by other users, in other projects. If the process has requirements to alter file permissions or retrieve user information, then this security feature will cause problems for the container. Typically the advice has been to allow the root group to read/write files and directories, by changing the group ownership of those files to root or allowing the random user information to be added to the /etc/passwd file. 
+
+This led to a known vulnerability by making the /etc/passwd file group readable. The OpenShift run-time CRI-O (starting from OpenShift 4.2 onward) now inserts the random user for the container into /etc/passwd. Removing the requirement to insert the random user manually into /etc/passwd completely. Additionally in future versions of CRI-O, the $HOME or $WORKDIR of the container user will also be assigned, helping Java based images. To read more about this, [click here](https://access.redhat.com/articles/4859371)
+
+### 6. Will Jenkins be the default OCP4 pipeline or should we be prepared to migrate our CI/CD pipelines to a new solution (Tekton, set up our own solution, GH actions etc.)?
+
+**Ans**: Jenkins will be available for migration, but new development teams should use another solution. Tekton will be available in Openshift 4.7. If you are using Jenkins, you will still need to configure your Jenkins deployment in your tools environment which would be a great first step in your migration journey.
+
+### 7. Will there be the same Jenkins auto-provisioning as 3.11 or is that gone?
+
+**Ans**: If you're refering to the tools,```build pipeline``` functionality of OCP3 (that would launch jenkins for you), this feature is not expected to continue. If you are using jenkins pipelines, you'll want to configure a long lived deployment in your tools namespace to ensure it's always watching your repo.
+
+### 8. Is there a public repo in BC Gov GitHub which uses the GitHub Actions pipeline for deployment?
+
+**Ans**:  Checkout https://github.com/bcgov/platform-services-registry/tree/master/.github/workflows for a sample repo that uses Github Actions to deploy the applications to Openshift.
+
+ 
+### 9. Does anybody plan on bringing in an ocp 4 specific feature to their deployments out of the gate, or are most people planning like-for-like for their migration?
+
+**Ans**: Mostly early access teams are looking towards working on like-for-like migration and are starting off my migrating their CI/CD pipelines, but are interested in extra metrics and tracing that Istio offers, Vault for storing and managing secrets, shifting from Jenkins to Tekton, Mongo 4 and other database operators.
+
+Look for https://www.openshift.com/streaming for Openshift Demos from Openshift Product Managers
+
+###  10. We have some routes like *.pathfinder.gov.bc.ca created on Openshift v3, after pathfinder cluster is gone, what should they look like on Openshift v4?
+
+**Ans**: If you have production services, we strongly recommend that you get a vanity DNS record setup that's NOT tied to the OCP cluster. (eg: dev.oidc.gov.bc.ca instead of sso-dev.pathfinder.gov.bc.ca)
+
+For non-prod (non-published) service names, the silver cluster will provide a wildcard DNS/cert combo at *.apps.silver.devops.gov.bc.ca
+
+### 11. Is something like *.nrs.gov.bc.ca considered a vanity url or should it be *.apps.gov.bc.ca?
+
+**Ans**:  (Need more info on managed DNS)
+
+### 12. Will the Trident Provisioner issue affect the OCP4 cluster?
+
+**Ans**: No. It will not affect the OCP4 cluster. (Need more info the what was the trident provisioner issue)
+
+### 13. What is Artifactory? Where can I find its documentation?
+
+**Ans**: The Developer Experience Team provides Artifactory for two purposes:
+
+1. Caching artifacts from the public internet to allow faster builds.
+2. Private repositories for artifacts that teams create/use and which cannot be provided to the public.
+
+You can read more about artifactory [here](https://github.com/BCDevOps/developer-experience/blob/cailey/artifactory/directory-fixes/apps/artifactory/DEVHUB-README.md)
+
+### 14. How do I add a user in OCP4? In the User Management, all I see is Service Accounts, Roles, Role Bindings.
+
+**Ans**: To add a user, switch from Admin Access to Developer Access, select the project and then click on Project Access
+
+### 15. To add users, should we use githubuser@github or githubuser@github.com?
+
+**Ans**: It should be githubuser@github.
+
+### 16. Has anyone here included rolebinding manifests in their project setup yet? (or is everyone still running with the GUI?)
+
+**Ans**: 
+
+### 17. Tried a quick deployment of our Azure Agent and I'm getting a network error "Cannot initiate the connection to archive.ubuntu.com" and lots of different errors like that.
+
+**Ans**: For any network issues, first step is to check if you have enabled the network security policies. Information on network security policies and how to set them up can be found [here](https://developer.gov.bc.ca/NetworkSecurityPolicy:-Quick-Start).
+
+A sample network security policy file to apply to your openshift namespace can be found [here](https://github.com/BCDevOps/platform-services/blob/master/security/aporeto/docs/sample/quickstart-nsp.yaml).
+
+### 18. Will the network security policies be set by default in the namespaces?
+
+**Ans**: No. You will need to set up the network security policy on each of the 4 namespaces (tools, dev, test and prod).
+
+### 19. In Openshift 3, setting role bindings for users and system accounts could easily be done via the Openshift console. That doesnt seem to be the case with OCP4. How can I set tole bindings in OCP4?
+
+**Ans**: It is recommended to store all your RBAC as manifest files in your repository to manage and organize them better. 
+
+An example RBAC manifest file can be found [here](https://github.com/bcgov/platform-services-registry/blob/00cd113ad2e8735e16404bb96c88ba0599dac7eb/openshift/templates/project-set-rbac.yaml).
+
+For More FAQs refer [here](https://github.com/BCDevOps/OpenShift4-Migration/issues)
+
 ## References
 
 https://github.com/BCDevOps/OpenShift4-Migration/tree/master/docs
